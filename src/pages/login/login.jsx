@@ -9,9 +9,8 @@ const Item = Form.Item
 class Login extends Component {
     render() {
         const onFinish = e => {
-            //阻止表单提交
-            e.preventDefault();
             console.log('Received values of form: ');
+            this.props.history.replace('/admin')
         };
 
         return (
