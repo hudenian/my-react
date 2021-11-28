@@ -18,7 +18,7 @@ class Login extends Component {
             <div className="login">
                 <div className="login-header">
                     <img src={bg} alt="logo"/>
-                    <h1>项目：后台管理系统</h1>
+                    <h1>胡德年：后台管理系统</h1>
                 </div>
                 <div className="login-content">
                     <h1>用户登陆</h1>
