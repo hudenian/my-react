@@ -8,9 +8,12 @@ const Item = Form.Item
 
 class Login extends Component {
     render() {
-        const onFinish = e => {
-            console.log('Received values of form: ');
-            this.props.history.replace('/admin')
+        const onFinish = (values) => {
+            if(values.username==='wangjun' && values.password==='123456'){
+                this.props.history.replace('/admin')
+            }else{
+                alert("用户名或者密码错误！")
+            }
         };
 
         return (
@@ -28,13 +31,13 @@ class Login extends Component {
                         onFinish={onFinish}
                     >
                         <Item
-                            name="用户名"
+                            name="username"
                             rules={[{required: true, message: '请输入用户名!'}]}
                         >
                             <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="用户名"/>
                         </Item>
                         <Item
-                            name="密码"
+                            name="password"
                             rules={[{required: true, message: '请输入密码!'}]}
                         >
                             <Input
