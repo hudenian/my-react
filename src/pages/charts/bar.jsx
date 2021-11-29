@@ -61,7 +61,6 @@ export default class Bar extends Component {
                 <Card title='柱状图'>
                     <ReactEcharts option={this.getOption(sales, stores)} />
                 </Card>
-
             </div>
         )
     }
