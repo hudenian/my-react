@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { Modal } from 'antd'
 
 import LinkButton from '../../components/link-button'
-import {reqWeather} from '../../api'
+// import {reqWeather} from '../../api/user'
 import { formateDate } from '../../utils/dateUtils'
 import menuList from '../../config/menuConfig'
 import memoryUtils from '../../utils/memoryUtils'
@@ -17,10 +17,10 @@ class Header extends Component {
   state = {
     currentTime: formateDate(Date.now()),
     dayPictureUrl: '', // 图片url
-    weather: '', // 天气文本
+    weather: '晴', // 天气文本
   }
 
-  /* 
+  /*
     退出登陆
   */
   logout = () => {
@@ -41,10 +41,10 @@ class Header extends Component {
         console.log('Cancel');
       },
     })
-    
+
   }
 
-  /* 
+  /*
   根据当前请求的path得到对应的title
   */
   getTitle = () => {
@@ -59,24 +59,24 @@ class Header extends Component {
           title = cItem.title
         }
       }
-      
+
     })
 
     return title
   }
 
-  /* 
+  /*
   获取天气信息显示
   */
-  getWeather = async () => {
-    // 发请求
-    const { dayPictureUrl, weather } = await reqWeather('北京')
-    // 更新状态
-    this.setState({
-      dayPictureUrl, 
-      weather
-    })
-  }
+  // getWeather = async () => {
+  //   // 发请求
+  //   const { dayPictureUrl, weather } = await reqWeather('北京')
+  //   // 更新状态
+  //   this.setState({
+  //     dayPictureUrl,
+  //     weather
+  //   })
+  // }
 
 
   componentDidMount () {
@@ -88,7 +88,7 @@ class Header extends Component {
       })
     }, 1000);
     // 发jsonp请求获取天气信息显示
-    this.getWeather()
+    // this.getWeather()
   }
 
   componentWillUnmount () {
@@ -99,7 +99,7 @@ class Header extends Component {
 
   render() {
 
-    const { currentTime, dayPictureUrl, weather } = this.state 
+    const { currentTime, dayPictureUrl, weather } = this.state
 
     const user = memoryUtils.user
     // 得到当前需要显示的title
@@ -117,7 +117,7 @@ class Header extends Component {
           <div className="header-bottom-left">{title}</div>
           <div className="header-bottom-right">
             <span>{ currentTime }</span>
-            <img src={dayPictureUrl} alt="weather"/>
+            {/*<img src={dayPictureUrl} alt="weather"/>*/}
             <span>{weather}</span>
           </div>
         </div>
