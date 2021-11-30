@@ -4,14 +4,19 @@ import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import './login.less'
 import bg from './images/bg.jpeg'
 
+import service from "../../utils/request";
+
+
 const Item = Form.Item
 
 class Login extends Component {
     render() {
-        const onFinish = (values) => {
-            if(values.username==='wangjun' && values.password==='123456'){
+        const onFinish =async ({username, password}) => {
+            const result = await service.post('/user/login',{userName:username,password:password});
+            debugger
+            if(result.code === 10000) {
                 this.props.history.replace('/admin')
-            }else{
+            } else {
                 alert("用户名或者密码错误！")
             }
         };
@@ -20,7 +25,7 @@ class Login extends Component {
             <div className="login">
                 <div className="login-header">
                     <img src={bg} alt="logo"/>
-                    <h1>胡德年：后台管理系统</h1>
+                    <h1>管理系统</h1>
                 </div>
                 <div className="login-content">
                     <h1>用户登陆</h1>
