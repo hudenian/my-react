@@ -1,36 +1,108 @@
-import React, {Component} from 'react'
-import SockJsClient from "react-stomp";
-
+import React, {Component} from 'react';
+import SockJsClient from 'react-stomp';
 import "./home.less";
+import {Button,Input } from 'antd';
+import NameComponent from "../../components/NameComponent";
 
-const SOCKET_URL = "http://localhost:8888/notification";
-const GENERAL_TOPIC = "/topic/pubic";
+const { TextArea } = Input;
 
-/*
-首页路由组件
-*/
-class Home extends Component {
+class Home extends React.Component {
+
     constructor(props) {
         super(props);
+        this.state = {
+            messages: [],
+            typedMessage: "",
+            name: ""
+        }
     }
 
-    sendMessage = (msg) => {
-        this.clientRef.sendMessage('/sendMessage', msg);  //@注解1
-    }
+    setName = (name) => {
+        console.log(name);
+        this.setState({name: name});
+    };
+
+    sendMessage = () => {
+        this.clientRef.sendMessage('/app/user-all', JSON.stringify({
+            name: this.state.name,
+            message: this.state.typedMessage
+        }));
+    };
+
+    displayMessages = () => {
+        return (
+            <div>
+                {this.state.messages.map(msg => {
+                    return (
+                        <div>
+                            {this.state.name === msg.name ?
+                                <div>
+                                    <p className="title1">{msg.name} : </p><br/>
+                                    <p>{msg.message}</p>
+                                </div> :
+                                <div>
+                                    <p className="title2">{msg.name} : </p><br/>
+                                    <p>{msg.message}</p>
+                                </div>
+                            }
+                        </div>)
+                })}
+            </div>
+        );
+    };
 
     render() {
         return (
             <div>
-                <SockJsClient url='http://localhost:8888/ws' topics={['/topic/pubic']}
+                <NameComponent setName={this.setName}/>
+                <div className="align-center">
+                    <h1>Welcome to Web Sockets</h1>
+                    <br/><br/>
+                </div>
+                <div className="align-center">
+                    User : <p className="title1"> {this.state.name}</p>
+                </div>
+                <div className="align-center">
+                    <br/><br/>
+                    <table>
+                        <tr>
+                            <td>
+                                <TextArea id="outlined-basic" label="Enter Message to Send" variant="outlined"
+                                           onChange={(event) => {
+                                               this.setState({typedMessage: event.target.value});
+                                           }}/>
+                            </td>
+                            <td>
+                                <Button variant="contained" color="primary"
+                                        onClick={this.sendMessage}>Send</Button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br/><br/>
+                <div className="align-center">
+                    {this.displayMessages()}
+                </div>
+                <SockJsClient url='http://localhost:8080/websocket-chat/'
+                              topics={['/topic/user']}
+                              onConnect={() => {
+                                  console.log("connected");
+                              }}
+                              onDisconnect={() => {
+                                  console.log("Disconnected");
+                              }}
                               onMessage={(msg) => {
-                                  alert(msg);
+                                  const jobs = this.state.messages;
+                                  jobs.push(msg);
+                                  this.setState({messages: jobs});
+                                  console.log(this.state);
                               }}
                               ref={(client) => {
                                   this.clientRef = client
                               }}/>
-                <div>99999</div>
             </div>
-        );
+        )
     }
 }
+
 export default Home

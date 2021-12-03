@@ -14,11 +14,11 @@ class Login extends Component {
         const onFinish =async ({username, password}) => {
             // const result = await service.post('/user/login',{userName:username,password:password});
             // debugger
-            // if(result.code === 10000) {
+            if(password === '123') {
                 this.props.history.replace('/admin')
-            // } else {
-            //     alert("用户名或者密码错误！")
-            // }
+            } else {
+                alert("用户名或者密码错误！")
+            }
         };
 
         return (
