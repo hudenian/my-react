@@ -14,7 +14,8 @@ class Login extends Component {
         const onFinish =async ({username, password}) => {
             // const result = await service.post('/user/login',{userName:username,password:password});
             // debugger
-            if(password === '123') {
+            if(password === '123456') {
+                window.localStorage.setItem("user",username)
                 this.props.history.replace('/admin')
             } else {
                 alert("用户名或者密码错误！")

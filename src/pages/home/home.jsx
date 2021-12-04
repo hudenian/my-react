@@ -56,7 +56,7 @@ class Home extends React.Component {
             <div>
                 <NameComponent setName={this.setName}/>
                 <div className="align-center">
-                    <h1>Welcome to Web Sockets</h1>
+                    <h1>消息中心</h1>
                     <br/><br/>
                 </div>
                 <div className="align-center">
@@ -74,7 +74,7 @@ class Home extends React.Component {
                             </td>
                             <td>
                                 <Button variant="contained" color="primary"
-                                        onClick={this.sendMessage}>Send</Button>
+                                        onClick={this.sendMessage}>发送</Button>
                             </td>
                         </tr>
                     </table>
@@ -83,7 +83,7 @@ class Home extends React.Component {
                 <div className="align-center">
                     {this.displayMessages()}
                 </div>
-                <SockJsClient url='http://localhost:8080/websocket-chat/'
+                <SockJsClient url='http://localhost:18888/websocket-chat/'
                               topics={['/topic/user']}
                               onConnect={() => {
                                   console.log("connected");

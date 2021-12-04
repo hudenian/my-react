@@ -1,6 +1,6 @@
 const menuList = [
   {
-    title: '首页', // 菜单标题名称
+    title: '个人中心', // 菜单标题名称
     key: '/admin/home', // 对应的path
     icon: 'home', // 图标名称
     public: true, // 公开的
