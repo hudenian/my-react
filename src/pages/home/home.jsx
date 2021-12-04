@@ -13,7 +13,7 @@ class Home extends React.Component {
         this.state = {
             messages: [],
             typedMessage: "",
-            name: ""
+            name: window.localStorage.getItem('user')
         }
     }
 
@@ -54,13 +54,13 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <NameComponent setName={this.setName}/>
+                {/*<NameComponent setName={this.setName}/>*/}
                 <div className="align-center">
                     <h1>消息中心</h1>
                     <br/><br/>
                 </div>
                 <div className="align-center">
-                    User : <p className="title1"> {this.state.name}</p>
+                    我的用户名 : <p className="title1"> {this.state.name}</p>
                 </div>
                 <div className="align-center">
                     <br/><br/>
