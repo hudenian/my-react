@@ -1,27 +1,38 @@
 import React, {Component} from 'react';
-import {Button, Form, Input} from 'antd';
+import {Button, Form, Input, message} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import './login.less'
 import bg from './images/bg.jpeg'
 
-import service from "../../utils/request";
+import {loginApi} from "../../api/api";
 
 
 const Item = Form.Item
 
 class Login extends Component {
-    render() {
-        const onFinish =async ({username, password}) => {
-            // const result = await service.post('/user/login',{userName:username,password:password});
-            // debugger
-            if(password === '123456') {
-                window.localStorage.setItem("user",username)
+    constructor(props) {
+        super(props);
+        this.onFinish = this.onFinish.bind(this);
+        this.state = {
+            token: null,
+        }
+    }
+
+    onFinish = (values) => {
+        loginApi({userName: values.userName, password: values.password}).then((response) => {
+            if (response.code === 10000) {
+                window.localStorage.setItem("user", values.userName)
                 this.props.history.replace('/admin')
             } else {
-                alert("用户名或者密码错误！")
+                message.error("用户名或密码错误！")
             }
-        };
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
+
+    render() {
         return (
             <div className="login">
                 <div className="login-header">
@@ -34,10 +45,10 @@ class Login extends Component {
                         name="normal_login"
                         className="login-form"
                         initialValues={{remember: true}}
-                        onFinish={onFinish}
+                        onFinish={this.onFinish}
                     >
                         <Item
-                            name="username"
+                            name="userName"
                             rules={[{required: true, message: '请输入用户名!'}]}
                         >
                             <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="用户名"/>

@@ -1,4 +1,10 @@
-import axios from "../../utils/request";
+import service from "../utils/request";
 
-export const loginApi = (username,password)=> axios.post('/user/login',{userName:username,password:password})
+// export const loginApi = (userName,password)=> service.post('/user/login',{userName,password})
+export const loginApi = (data)=> service({
+    method: "POST",
+    // url: `/api/v1/system/user/login`,
+    url: `/user/login`,
+    data
+})
 

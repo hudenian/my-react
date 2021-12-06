@@ -83,7 +83,7 @@ class Home extends React.Component {
                 <div className="align-center">
                     {this.displayMessages()}
                 </div>
-                <SockJsClient url='http://localhost:18888/websocket-chat/'
+                <SockJsClient url='http://81.68.242.174:18888/react/websocket-chat'
                               topics={['/topic/user']}
                               onConnect={() => {
                                   console.log("connected");

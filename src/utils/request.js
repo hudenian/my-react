@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const service = axios.create({
-    baseURL: '/react',
+    baseURL: '/proxyApi/react',
     withCredentials: true, // send cookies when cross-domain requests
     timeout: 50000 // request timeout
 })
@@ -9,7 +9,6 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
     (config) => {
-        console.log("set request>>>>>")
         return config
     },
     error => {
