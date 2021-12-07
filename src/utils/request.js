@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const service = axios.create({
-    baseURL: '/proxyApi/react',
+    baseURL: '/react',
     withCredentials: true, // send cookies when cross-domain requests
     timeout: 50000 // request timeout
 })

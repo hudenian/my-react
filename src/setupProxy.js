@@ -4,11 +4,12 @@ const {
 
 module.exports = function (app) {
     app.use(
-        createProxyMiddleware('/proxyApi', {
-            target: 'http://localhost:18888',
+        createProxyMiddleware('/react', {
+            target: 'http://81.68.242.174:18888',
+            // target: 'http://localhost:18888',
             changeOrigin: true,
             pathRewrite: {
-                '^/proxyApi': '/proxyApi',
+                '^/react': '/react',
             },
         }),
     )
